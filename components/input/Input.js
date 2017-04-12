@@ -35,6 +35,7 @@ const factory = (FontIcon) => {
       onChange: PropTypes.func,
       onFocus: PropTypes.func,
       onKeyPress: PropTypes.func,
+      onPaste: PropTypes.func,
       required: PropTypes.bool,
       rows: PropTypes.number,
       theme: PropTypes.shape({
@@ -170,7 +171,7 @@ const factory = (FontIcon) => {
     render() {
       const { children, defaultValue, disabled, error, floating, hint, icon,
               name, label: labelText, maxLength, multiline, required,
-              theme, type, value, onKeyPress, rows = 1, ...others } = this.props;
+              theme, type, value, onKeyPress, onPaste, rows = 1, ...others } = this.props;
       const length = maxLength && value ? value.length : 0;
       const labelClassName = classnames(theme.label, { [theme.fixed]: !floating });
 
@@ -202,6 +203,10 @@ const factory = (FontIcon) => {
       } else {
         inputElementProps.rows = rows;
         inputElementProps.onKeyPress = this.handleKeyPress;
+      }
+
+      if (onPaste) {
+        inputElementProps.onPaste = onPaste;
       }
 
       return (
